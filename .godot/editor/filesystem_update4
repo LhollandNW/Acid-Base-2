@@ -1,0 +1,6 @@
+res://World/lvl_1.tscn
+res://Characters/player_lvl1.gd
+res://Characters/player_lvl_1.tscn
+res://Characters/enemy.tscn
+res://Projectiles/enemy_projectile.tscn
+res://Projectiles/enemy_projectile.gd

@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjr8twi1l5kkb"]
+
+[ext_resource type="Script" path="res://Projectiles/enemy_projectile.gd" id="1_wfft1"]
+[ext_resource type="Texture2D" uid="uid://brke4mdx0bp11" path="res://Assets/Animations/Duck/Bullet.png" id="2_qywfp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frkge"]
+atlas = ExtResource("2_qywfp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6bb24"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frkge")
+}],
+"loop": true,
+"name": &"\"Acid\"",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hh518"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uw88c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e02g3"]
+size = Vector2(82, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfvjf"]
+size = Vector2(20, 195)
+
+[node name="enemy_Projectile" type="RigidBody2D"]
+script = ExtResource("1_wfft1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6bb24")
+animation = &"\"Acid\""
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hh518")
+
+[node name="FormulaLabel" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -33.0
+offset_right = 20.0
+offset_bottom = -10.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_uw88c")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Explosion" type="Area2D" parent="."]
+
+[node name="Acid" type="CollisionShape2D" parent="Explosion" groups=["Acid"]]
+shape = SubResource("RectangleShape2D_e02g3")
+
+[node name="Base" type="CollisionShape2D" parent="Explosion" groups=["Base"]]
+position = Vector2(0, -87.5)
+shape = SubResource("RectangleShape2D_lfvjf")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
