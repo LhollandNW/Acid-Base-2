@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://w7m6tehvvy3g"]
+[gd_scene load_steps=57 format=3 uid="uid://w7m6tehvvy3g"]
 
 [ext_resource type="Script" path="res://Characters/player_lvl1.gd" id="1_qnlkq"]
 [ext_resource type="Texture2D" uid="uid://7egjl2nikk2x" path="res://Assets/Animations/Player/adventurer-attack1-00.png" id="2_emgab"]
@@ -45,11 +45,25 @@
 [ext_resource type="Texture2D" uid="uid://bxjpfd1nefx3o" path="res://Assets/Animations/Player/adventurer-run-05.png" id="29_lqtu6"]
 [ext_resource type="Texture2D" uid="uid://c5fp5edmfgpw1" path="res://Assets/Animations/Player/adventurer-smrslt-03.png" id="29_sfkuk"]
 [ext_resource type="Texture2D" uid="uid://dxp77wq60c2rr" path="res://Assets/Textures/CloudTexture.png" id="30_kmjbp"]
+[ext_resource type="Texture2D" uid="uid://776q55m5khgp" path="res://Assets/Animations/Player/adventurer-crnr-grb-00.png" id="34_kslk0"]
+[ext_resource type="Texture2D" uid="uid://b2p7oph7c4nk0" path="res://Assets/Animations/Player/adventurer-slide-00.png" id="39_vjje6"]
+[ext_resource type="Texture2D" uid="uid://bsv3qwhw4pmkn" path="res://Assets/Animations/Player/adventurer-slide-01.png" id="40_qlu8j"]
 [ext_resource type="Texture2D" uid="uid://dw564pefu1bf1" path="res://Assets/Animations/Player/adventurer-wall-slide-00.png" id="45_6xd52"]
 [ext_resource type="Texture2D" uid="uid://cdinj2ds5f06u" path="res://Assets/Animations/Player/adventurer-wall-slide-01.png" id="46_l7qja"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nclx7"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_wjbf5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bjw3n")
+}],
+"loop": true,
+"name": &"Appearing",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 3.0,
 "texture": ExtResource("2_emgab")
@@ -155,7 +169,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("29_sfkuk")
 }],
-"loop": true,
+"loop": false,
 "name": &"Dodge",
 "speed": 10.0
 }, {
@@ -169,6 +183,14 @@ animations = [{
 "loop": false,
 "name": &"Fall",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_kslk0")
+}],
+"loop": true,
+"name": &"Grab",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 8.0,
@@ -205,6 +227,17 @@ animations = [{
 "speed": 20.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_vjje6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_qlu8j")
+}],
+"loop": true,
+"name": &"Slide",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 3.0,
 "texture": ExtResource("24_sryn8")
 }, {
@@ -234,16 +267,16 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("46_l7qja")
 }],
-"loop": true,
+"loop": false,
 "name": &"Wall_Cling",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hkj8t"]
-size = Vector2(48, 84.25)
+size = Vector2(22, 84.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_garp5"]
-size = Vector2(26, 62)
+size = Vector2(38, 62)
 
 [sub_resource type="Curve" id="Curve_bqjfj"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.247191, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -254,28 +287,30 @@ offsets = PackedFloat32Array(0, 0.0133333, 0.44, 1)
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0.381703, 0.381703, 0.381703, 1, 0.259294, 0.259294, 0.259294, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pke3y"]
-size = Vector2(37, 84)
+size = Vector2(28, 74)
 
 [node name="player_Lvl1" type="CharacterBody2D"]
-collision_layer = 129
-collision_mask = 129
+collision_mask = 3
 script = ExtResource("1_qnlkq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 2)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_nclx7")
-animation = &"Idle"
+animation = &"Fall"
 
-[node name="PlayerHitBox" type="CollisionShape2D" parent="." groups=["Player"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 12.125)
 shape = SubResource("RectangleShape2D_hkj8t")
 
-[node name="SwordHitBox" type="Area2D" parent="." groups=["Sword"]]
+[node name="SwordHurtbox" type="Area2D" parent="." groups=["Sword"]]
+collision_layer = 0
+collision_mask = 4
 
-[node name="Box" type="CollisionShape2D" parent="SwordHitBox" groups=["Sword"]]
-position = Vector2(39, 11)
+[node name="Box" type="CollisionShape2D" parent="SwordHurtbox"]
+position = Vector2(33, 11)
 shape = SubResource("RectangleShape2D_garp5")
+disabled = true
 
 [node name="ParticleTrails" type="CPUParticles2D" parent="."]
 position = Vector2(0, 19)
@@ -299,12 +334,19 @@ color_ramp = SubResource("Gradient_4hgp6")
 position = Vector2(0, 19)
 emitting = false
 
-[node name="PlayerBox" type="Area2D" parent="." groups=["Player"]]
+[node name="PlayerHitbox" type="Area2D" parent="." groups=["Player"]]
 position = Vector2(0, 12.125)
+collision_layer = 0
+collision_mask = 4
 
-[node name="Box" type="CollisionShape2D" parent="PlayerBox" groups=["Player"]]
-position = Vector2(-8.5, -0.125)
+[node name="Box" type="CollisionShape2D" parent="PlayerHitbox"]
+position = Vector2(0, -5.125)
 shape = SubResource("RectangleShape2D_pke3y")
 
+[node name="DodgeCooldownTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
-[connection signal="body_entered" from="PlayerBox" to="." method="_on_collision_body_entered"]
+[connection signal="body_entered" from="SwordHurtbox" to="." method="_on_sword_hurtbox_body_entered"]
+[connection signal="body_entered" from="PlayerHitbox" to="." method="_on_player_hitbox_body_entered"]

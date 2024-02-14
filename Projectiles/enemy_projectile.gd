@@ -29,19 +29,23 @@ func _physics_process(delta):
 	self.position = q0.lerp(q1, min(t, 1.0))
 	if (self.position == positionB):
 		if is_in_group("Acid"):
-			print("Acid Boom")
 			acidExplosion.disabled=false
 		if is_in_group("Base"):
-			print("Base Boom")
 			baseExplosion.disabled=false
 		if is_in_group("Both"):
-			print("Acid or Base Boom?")
+			#print("Acid or Base Boom?")
+			pass
 		if is_in_group("Neutral"):
-			print("Nothing")
+			#print("Nothing")
+			pass
+		await get_tree().create_timer(1).timeout
+		acidExplosion.disabled=true
+		baseExplosion.disabled=true
 		queue_free()
 
 func _on_area_2d_body_entered(body):
-	print(body)
-	if body.is_in_group("Player") or body.is_in_group("Sword"):
-		queue_free()
-	 # Replace with function body.
+	var group = get_groups()[0]
+	print("Hit with " + group)
+	
+func _on_explosion_body_entered(body):
+	body.death_tween() # Replace with function body.

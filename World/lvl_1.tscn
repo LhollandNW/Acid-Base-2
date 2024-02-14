@@ -811,14 +811,14 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_v1m5s"]
 tile_size = Vector2i(64, 64)
-physics_layer_0/collision_layer = 128
-physics_layer_0/collision_mask = 128
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 2
 sources/0 = SubResource("TileSetAtlasSource_m4uh6")
 
 [node name="lvl1" type="Node2D"]
 
 [node name="player_Lvl1" parent="." instance=ExtResource("1_0511s")]
-position = Vector2(149, 395)
+position = Vector2(151, 314)
 
 [node name="WorldSpace" type="Node2D" parent="."]
 
@@ -924,4 +924,4 @@ vertical_alignment = 1
 position = Vector2(1006, 410)
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(159, 447)
+position = Vector2(151, 315)

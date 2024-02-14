@@ -29,6 +29,8 @@ size = Vector2(82, 20)
 size = Vector2(20, 195)
 
 [node name="enemy_Projectile" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_wfft1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -44,22 +46,27 @@ offset_top = -33.0
 offset_right = 20.0
 offset_bottom = -10.0
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_uw88c")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="Explosion" type="Area2D" parent="."]
+collision_layer = 0
 
-[node name="Acid" type="CollisionShape2D" parent="Explosion" groups=["Acid"]]
+[node name="Acid" type="CollisionShape2D" parent="Explosion"]
 shape = SubResource("RectangleShape2D_e02g3")
+disabled = true
 
-[node name="Base" type="CollisionShape2D" parent="Explosion" groups=["Base"]]
+[node name="Base" type="CollisionShape2D" parent="Explosion"]
 position = Vector2(0, -87.5)
 shape = SubResource("RectangleShape2D_lfvjf")
+disabled = true
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_area_2d_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="Explosion" to="." method="_on_explosion_body_entered"]
