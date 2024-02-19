@@ -295,12 +295,12 @@ script = ExtResource("1_qnlkq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 2)
-scale = Vector2(3, 3)
+scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_nclx7")
 animation = &"Fall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 12.125)
+position = Vector2(6, -2)
 shape = SubResource("RectangleShape2D_hkj8t")
 
 [node name="SwordHurtbox" type="Area2D" parent="." groups=["Sword"]]
@@ -308,7 +308,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="Box" type="CollisionShape2D" parent="SwordHurtbox"]
-position = Vector2(33, 11)
+position = Vector2(38, 2)
 shape = SubResource("RectangleShape2D_garp5")
 disabled = true
 
@@ -340,7 +340,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="Box" type="CollisionShape2D" parent="PlayerHitbox"]
-position = Vector2(0, -5.125)
+position = Vector2(5, -7.125)
 shape = SubResource("RectangleShape2D_pke3y")
 
 [node name="DodgeCooldownTimer" type="Timer" parent="."]

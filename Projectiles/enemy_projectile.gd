@@ -2,7 +2,7 @@ extends RigidBody2D
 
 var positionA = Vector2(0, 0)
 var positionC = Vector2(-400, -200)
-var positionB = Vector2(-850, 30)
+var positionB = Vector2(-850, 38)
 var t = 0.0
 var duration = 3.0
 var compoundArray = [["AgCl","Neutral"],["BaCrO₄","Base"],["CCl₄","Neutral"],["HClO₄","Acid"],["CO₂H","Acid"],["HNO₂","Acid"],["C₃H₈","Neutral"],["CH₃COOH","Acid"],["MgC₂O₄","Base"],["HCN","Acid"],["CH₄","Neutral"],["CaCO₃","Base"],["Na₂S","Base"],["K₂SO₃","Base"],["CH₃-NH₂","Base"],["Mg(OH)₂","Base"],["HCl","Acid"],["HNO₃","Acid"],["K₃PO₄","Base"],["KNO₃","Neutral"],["KNO₂","Base"],["NaBr","Neutral"],["KMnO₄","Base"],["Ca(ClO₃)₂","Base"],["H₂O","Both"]]
@@ -11,8 +11,14 @@ var compoundArray = [["AgCl","Neutral"],["BaCrO₄","Base"],["CCl₄","Neutral"]
 @onready var projectile = self
 @onready var acidExplosion = $Explosion/Acid
 @onready var baseExplosion = $Explosion/Base
+@onready var acidParticles = $Explosion/AcidParticles
+@onready var baseParticles = $Explosion/BaseParticles
+@onready var neutralParticles = $Explosion/NeutralParticles
 
 func _ready():
+	acidParticles.emitting = false
+	baseParticles.emitting = false
+	neutralParticles.emitting = false
 	acidExplosion.disabled
 	baseExplosion.disabled
 	var selection = randi_range(0, compoundArray.size() - 1)
@@ -30,17 +36,25 @@ func _physics_process(delta):
 	if (self.position == positionB):
 		if is_in_group("Acid"):
 			acidExplosion.disabled=false
+			acidParticles.emitting=true
+			
 		if is_in_group("Base"):
 			baseExplosion.disabled=false
+			baseParticles.emitting=true
 		if is_in_group("Both"):
 			#print("Acid or Base Boom?")
+			neutralParticles.emitting=true
 			pass
 		if is_in_group("Neutral"):
 			#print("Nothing")
+			neutralParticles.emitting=true
 			pass
+		formula.hide()
+		disable()
 		await get_tree().create_timer(1).timeout
 		acidExplosion.disabled=true
 		baseExplosion.disabled=true
+		await get_tree().create_timer(1).timeout
 		queue_free()
 
 func _on_area_2d_body_entered(body):
@@ -49,3 +63,7 @@ func _on_area_2d_body_entered(body):
 	
 func _on_explosion_body_entered(body):
 	body.death_tween() # Replace with function body.
+	
+func disable():
+	projectile_sprite.hide()
+	$Hurtbox/CollisionShape2D.set_deferred("disabled", true)

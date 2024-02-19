@@ -4,30 +4,27 @@ extends CharacterBody2D
 
 @export_category("Player Properties")
 @export var move_speed : float = 320
-@export var jump_force : float = 800
-@export var gravity : float = 1800
+@export var jump_force : float = 900
+@export var gravity : float = 1440
 @onready var attack_animation_duration_timer = $AttackAnimationDurationTimer
 @onready var anim = $AnimatedSprite2D
 @onready var spawn_point = %SpawnPoint
 @onready var particle_trails = $ParticleTrails
 @onready var death_particles = $DeathParticles
 @onready var sword = $SwordHurtbox/Box
-var positionA = Vector2(175, 400)
-var positionB = Vector2(20, 200)
-var positionC = Vector2(100, 100)
-
+var positionA = Vector2(175, 500)
+var positionB = Vector2(20, 300)
+var positionC = Vector2(100, 200)
 var t = 0.0
 var duration = 1.0
 var dodging = false
 var returning = false
 var attacking = false
-
 var player_attacks = [
 	'Attack_1',
 	'Attack_2',
 	'Attack_3'
 ]
-# --------- BUILT-IN FUNCTIONS ---------- #
 func _physics_process(_delta):
 	# Calling functions
 	movement(_delta)
@@ -130,8 +127,10 @@ func death_tween():
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.15)
 	await tween.finished
-	set_position(Vector2(175, 0))
-	await get_tree().create_timer(1).timeout
+	set_position(Vector2(0, 0))
+	await get_tree().create_timer(3).timeout
+	velocity.y = 0
+	set_position(Vector2(155, 0))
 	respawn_tween()
 
 func respawn_tween():
