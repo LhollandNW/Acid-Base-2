@@ -4,19 +4,19 @@ extends CharacterBody2D
 
 @export_category("Player Properties")
 @export var move_speed : float = 320
-@export var jump_force : float = 900
-@export var gravity : float = 1440
+@export var jump_force : float = 400
+@export var gravity : float = 500
 @onready var attack_animation_duration_timer = $AttackAnimationDurationTimer
 @onready var anim = $AnimatedSprite2D
 @onready var spawn_point = %SpawnPoint
 @onready var particle_trails = $ParticleTrails
 @onready var death_particles = $DeathParticles
 @onready var sword = $SwordHurtbox/Box
-var positionA = Vector2(175, 500)
-var positionB = Vector2(20, 300)
-var positionC = Vector2(100, 200)
+var positionA = Vector2(175, 600)
+var positionB = Vector2(20, 400)
+var positionC = Vector2(100, 300)
 var t = 0.0
-var duration = 1.0
+var duration = 0.75
 var dodging = false
 var returning = false
 var attacking = false
@@ -33,20 +33,23 @@ func _physics_process(_delta):
 		if not attacking:
 			attacking = true
 			anim.play(player_attacks[randi()%3])
+			await get_tree().create_timer(0.6).timeout
 			sword.disabled=false
 			return
+			
 	elif Input.is_action_just_pressed("Dodge") and is_on_floor():
 		positionA = self.position
 		dodging = true
 		anim.play("Dodge")
 		pass
-	elif Input.is_action_just_released("Left") or Input.is_action_just_released("Right") and is_on_floor():
-		anim.play("Idle")
-	if is_on_floor() and anim.animation == "Fall":
+		
+	elif is_on_floor() and anim.animation == "Fall":
 		anim.play("Idle") 
+		
 	elif !is_on_floor() and anim.animation != "Jump" and not dodging and not returning:
 		anim.play("Fall")
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
+		
+	elif Input.is_action_just_pressed("Jump") and is_on_floor():
 		anim.play("Jump")
 		jump()
 		attacking = false
@@ -56,20 +59,20 @@ func _physics_process(_delta):
 		var q1 = positionC.lerp(positionB, min(t, 1.0))
 		self.position = q0.lerp(q1, min(t, 1.0))
 		anim.flip_h = true
-		if self.position == positionB:
+		if self.position.distance_to(positionB)<0.01:
 			anim.play("Wall_Cling")
-			await get_tree().create_timer(1).timeout
+			await get_tree().create_timer(0.5).timeout
 			t = 0.0
-			returning = true
 			anim.flip_h = false
 			dodging = false
+			returning = true
 	if returning:
 		anim.play("Dodge")
 		t += _delta / duration
 		var q0 = positionB.lerp(positionC, min(t, 1.0))
 		var q1 = positionC.lerp(positionA, min(t, 1.0))
 		self.position = q0.lerp(q1, min(t, 1.0))
-		if self.position == positionA:
+		if self.position.distance_to(positionA)<0.01:
 			anim.play("Idle")
 			returning = false
 			positionA = self.position
@@ -92,7 +95,7 @@ func _on_AnimatedSprite_animation_finished():
 		anim.play("Dodge")
 	elif anim.animation == "Wall_Cling":
 		anim.play("Wall_Cling")
-	elif anim.animation == "Fall " and !is_on_floor():
+	elif anim.animation == "Fall" and !is_on_floor():
 		anim.play("Fall")
 	elif anim.animation == "Walk" and Input.is_action_pressed("Right") or Input.is_action_pressed("Left"):
 		pass
@@ -144,6 +147,8 @@ func jump_tween():
 	tween.tween_property(self, "scale", Vector2.ONE, 0.1)
 
 func _on_sword_hurtbox_body_entered(body):
+	if body.is_in_group("Base"):
+		body.queue_free()
 	pass # Replace with function body.
 
 func _on_player_hitbox_body_entered(body):
