@@ -25,6 +25,7 @@ var player_attacks = [
 	'Attack_2',
 	'Attack_3'
 ]
+# --------- FUNCTIONS ---------- #
 func _physics_process(_delta):
 	movement(_delta)
 	if Input.is_action_just_pressed("Attack") and is_on_floor():
@@ -35,7 +36,7 @@ func _physics_process(_delta):
 			sword.disabled=false
 			return
 			
-	elif Input.is_action_just_pressed("Dodge") and is_on_floor():
+	elif Input.is_action_just_pressed("Dodge") and is_on_floor() and not attacking:
 		positionA = self.position
 		dodging = true
 		anim.play("Dodge")
@@ -47,7 +48,7 @@ func _physics_process(_delta):
 	elif !is_on_floor() and anim.animation != "Jump" and not dodging and not returning:
 		anim.play("Fall")
 		
-	elif Input.is_action_just_pressed("Jump") and is_on_floor():
+	elif Input.is_action_just_pressed("Jump") and is_on_floor() and not attacking:
 		anim.play("Jump")
 		jump()
 		attacking = false
@@ -78,16 +79,18 @@ func _physics_process(_delta):
 			positionA = self.position
 			t=0.0
 			
-func _on_AnimatedSprite_animation_finished():
-	if anim.animation in player_attacks:
+#Handles animations to ensure no animations overwrite an ongoing one unless its supposed to
+func _on_AnimatedSprite_animation_finished(): 
+	if anim.animation in player_attacks: #if attack 1, 2, or 3 finishes playing, it disables the sword's hitbox
 		attacking = false
 		sword.disabled=true
 		anim.play("Idle")
 	elif anim.animation == "Jump" and !is_on_floor():
 		anim.play("Fall")
-		return  # Skip the rest of the function to avoid playing "Idle" for jumps
+		return  # Skip the rest of the function to avoid playing "Idle" during jumps
 	elif anim.animation == "Dodge" and is_on_floor():
 		anim.play("Idle")
+		return
 	elif anim.animation == "Dodge":
 		anim.play("Dodge")
 	elif returning:
@@ -101,9 +104,8 @@ func _on_AnimatedSprite_animation_finished():
 	else:
 		anim.play("Idle")
 		
-# <-- Player Movement Code -->
 func movement(delta):
-	# Gravity
+	# Simple Gravity Calculation
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	# Moves player if they are not attacking
@@ -124,7 +126,7 @@ func flip_player():
 	elif velocity.x > 0 and not attacking:
 		anim.flip_h = false
 
-# Tween Animations
+# Death and respawn functions
 func death_tween():
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.15)
@@ -145,7 +147,7 @@ func jump_tween():
 	tween.tween_property(self, "scale", Vector2(0.65, 1.2), 0.1)
 	tween.tween_property(self, "scale", Vector2.ONE, 0.1)
 
-func _on_sword_hurtbox_body_entered(body):
+func _on_sword_hurtbox_body_entered(body): #Lets the sword's hitbox stop bases
 	if body.is_in_group("Base"):
 		body.queue_free()
 	pass # Replace with function body.

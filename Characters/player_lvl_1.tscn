@@ -297,7 +297,7 @@ script = ExtResource("1_qnlkq")
 position = Vector2(0, 2)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_nclx7")
-animation = &"Attack_3"
+animation = &"Appearing"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, -2)
@@ -342,10 +342,6 @@ collision_mask = 4
 [node name="Box" type="CollisionShape2D" parent="PlayerHitbox"]
 position = Vector2(5, -7.125)
 shape = SubResource("RectangleShape2D_pke3y")
-
-[node name="DodgeCooldownTimer" type="Timer" parent="."]
-wait_time = 4.0
-one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="body_entered" from="SwordHurtbox" to="." method="_on_sword_hurtbox_body_entered"]
