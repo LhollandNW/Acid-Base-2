@@ -4,8 +4,8 @@ extends CharacterBody2D
 
 @export_category("Player Properties")
 @export var move_speed : float = 320
-@export var jump_force : float = 400
-@export var gravity : float = 500
+@export var jump_force : float = 600
+@export var gravity : float = 1000
 @onready var attack_animation_duration_timer = $AttackAnimationDurationTimer
 @onready var anim = $AnimatedSprite2D
 @onready var spawn_point = %SpawnPoint
@@ -26,9 +26,7 @@ var player_attacks = [
 	'Attack_3'
 ]
 func _physics_process(_delta):
-	# Calling functions
 	movement(_delta)
-	#flip_player()
 	if Input.is_action_just_pressed("Attack") and is_on_floor():
 		if not attacking:
 			attacking = true
@@ -53,6 +51,7 @@ func _physics_process(_delta):
 		anim.play("Jump")
 		jump()
 		attacking = false
+		
 	if dodging:
 		t += _delta / duration
 		var q0 = positionA.lerp(positionC, min(t, 1.0))
@@ -66,7 +65,8 @@ func _physics_process(_delta):
 			anim.flip_h = false
 			dodging = false
 			returning = true
-	if returning:
+			
+	elif returning:
 		anim.play("Dodge")
 		t += _delta / duration
 		var q0 = positionB.lerp(positionC, min(t, 1.0))
@@ -78,7 +78,6 @@ func _physics_process(_delta):
 			positionA = self.position
 			t=0.0
 			
-
 func _on_AnimatedSprite_animation_finished():
 	if anim.animation in player_attacks:
 		attacking = false
@@ -107,7 +106,7 @@ func movement(delta):
 	# Gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	# Move Player
+	# Moves player if they are not attacking
 	if not attacking:
 		var inputAxis = Input.get_axis("Left", "Right")
 		velocity = Vector2(inputAxis * move_speed, velocity.y)
@@ -141,9 +140,9 @@ func respawn_tween():
 	tween.stop(); tween.play()
 	tween.tween_property(self, "scale", Vector2.ONE, 0.15) 
 	
-func jump_tween():
+func jump_tween(): 
 	var tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(0.7, 1.4), 0.1)
+	tween.tween_property(self, "scale", Vector2(0.65, 1.2), 0.1)
 	tween.tween_property(self, "scale", Vector2.ONE, 0.1)
 
 func _on_sword_hurtbox_body_entered(body):

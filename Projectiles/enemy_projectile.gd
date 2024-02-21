@@ -60,7 +60,7 @@ func _physics_process(delta):
 		await get_tree().create_timer(0.5).timeout
 		acidExplosion.disabled=true
 		baseExplosion.disabled=true
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(3).timeout
 		queue_free()
 		handled=false
 
