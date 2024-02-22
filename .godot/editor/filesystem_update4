@@ -8,3 +8,4 @@ res://Projectiles/BaseParticles.tscn
 res://Projectiles/AcidParticles.tscn
 res://Projectiles/NeutralParticles.tscn
 res://Projectiles/enemy_projectile.gd
+res://World/lvl_1.gd

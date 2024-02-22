@@ -1,6 +1,6 @@
+ColorRect
 TextureRect
 Sprite2D
-ColorRect
 TileMap
 CPUParticles2D
 WorldEnvironment

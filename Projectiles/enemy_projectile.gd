@@ -2,7 +2,7 @@ extends RigidBody2D
 
 var positionA = Vector2(0, 0)
 var positionC = Vector2(-400, -200)
-var positionB = Vector2(-852, 44)
+var positionB = Vector2(-652, 44)
 var t = 0.0
 var duration = 3.0
 var handled = false

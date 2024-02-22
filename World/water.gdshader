@@ -14,13 +14,14 @@ void vertex() {
 }
 
 void fragment(){
-	float depth = texture(noise1, UV + scroll1 * TIME).r * texture(noise2, UV + scroll2 * TIME).r;
+	float depth = texture(noise1, UV + scroll1 * TIME).r * texture(noise2, UV + scroll2 * TIME).r * texture(TEXTURE, UV + scroll2 * TIME).r;
 	vec4 screen_col = texture(SCREEN_TEXTURE, SCREEN_UV + distortion_strength * vec2(depth));
 	vec4 top_light = smoothstep(light_start, light_end, depth) * top_color;
-	COLOR = screen_col * tone_color + top_light;
-	COLOR.a = 1.0;
+	if (texture(SCREEN_TEXTURE, SCREEN_UV).b >=0.55){
+		COLOR = screen_col * tone_color + top_light;
+		COLOR.a = 1.0;
+	}
 }
-
 
 //void light() {
 	// Called for every pixel for every light affecting the CanvasItem.
