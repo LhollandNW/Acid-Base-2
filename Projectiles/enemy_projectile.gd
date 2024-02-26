@@ -6,7 +6,16 @@ var positionB = Vector2(-652, 44)
 var t = 0.0
 var duration = 3.0
 var handled = false
-var compoundArray = [["AgCl","Neutral"],["BaCrO₄","Base"],["CCl₄","Neutral"],["HClO₄","Acid"],["CO₂H","Acid"],["HNO₂","Acid"],["C₃H₈","Neutral"],["CH₃COOH","Acid"],["MgC₂O₄","Base"],["HCN","Acid"],["CH₄","Neutral"],["CaCO₃","Base"],["Na₂S","Base"],["K₂SO₃","Base"],["CH₃-NH₂","Base"],["Mg(OH)₂","Base"],["HCl","Acid"],["HNO₃","Acid"],["K₃PO₄","Base"],["KNO₃","Neutral"],["KNO₂","Base"],["NaBr","Neutral"],["KMnO₄","Base"],["Ca(ClO₃)₂","Base"],["H₂O","Both"]]
+var compoundArray = [
+					["AgCl","Neutral"],["BaCrO₄","Base"],["CCl₄","Neutral"],
+					["HClO₄","Acid"],["CO₂H","Acid"],["HNO₂","Acid"],
+					["C₃H₈","Neutral"],["CH₃COOH","Acid"],["MgC₂O₄","Base"],
+					["HCN","Acid"],["CH₄","Neutral"],["CaCO₃","Base"],
+					["Na₂S","Base"],["K₂SO₃","Base"],["CH₃-NH₂","Base"],
+					["Mg(OH)₂","Base"],["HCl","Acid"],["HNO₃","Acid"],
+					["K₃PO₄","Base"],["KNO₃","Neutral"],["KNO₂","Base"],
+					["NaBr","Neutral"],["KMnO₄","Base"],["Ca(ClO₃)₂","Base"],["H₂O","Both"]
+					]
 @onready var formula = $FormulaLabel
 @onready var projectile_sprite = $Sprite2D
 @onready var projectile = self
@@ -15,6 +24,7 @@ var compoundArray = [["AgCl","Neutral"],["BaCrO₄","Base"],["CCl₄","Neutral"]
 @onready var acidParticles = $Explosion/AcidParticles
 @onready var baseParticles = $Explosion/BaseParticles
 @onready var neutralParticles = $Explosion/NeutralParticles
+
 func _ready():
 	projectile_sprite.material.set_shader_parameter("active", false)
 	acidParticles.emitting = false
