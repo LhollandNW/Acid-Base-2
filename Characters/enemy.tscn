@@ -169,5 +169,6 @@ autostart = true
 [node name="AttackDurationTimer" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="projectile_finished" from="." to="." method="_on_projectile_finished"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="AttackDurationTimer" to="." method="_on_attack_duration_timer_timeout"]

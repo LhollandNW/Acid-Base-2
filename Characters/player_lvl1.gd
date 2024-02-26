@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 # --------- VARIABLES ---------- #
-
 @export_category("Player Properties")
 @export var move_speed : float = 320
 @export var jump_force : float = 600
@@ -12,6 +11,10 @@ extends CharacterBody2D
 @onready var particle_trails = $ParticleTrails
 @onready var death_particles = $DeathParticles
 @onready var sword = $SwordHurtbox/Box
+@onready var inverse = anim.get_canvas_item()
+@onready var fullHeart = preload("res://healthFull.png")
+@onready var halfHeart = preload("res://healthHalf.png")
+@export var lives = 6
 var positionA = Vector2(175, 600)
 var positionB = Vector2(20, 400)
 var positionC = Vector2(100, 300)
@@ -25,7 +28,10 @@ var player_attacks = [
 	'Attack_2',
 	'Attack_3'
 ]
+
 # --------- FUNCTIONS ---------- #
+func _ready():
+	pass
 func _physics_process(_delta):
 	movement(_delta)
 	if Input.is_action_just_pressed("Attack") and is_on_floor():
@@ -36,10 +42,12 @@ func _physics_process(_delta):
 			sword.disabled=false
 			return
 			
-	elif Input.is_action_just_pressed("Dodge") and is_on_floor() and not attacking:
+	elif Input.is_action_just_pressed("Dodge") and is_on_floor() and not attacking and lives > 1:
 		positionA = self.position
 		dodging = true
 		anim.play("Dodge")
+		lives -= 1
+		$"..".update_lives(lives)
 		pass
 		
 	elif is_on_floor() and anim.animation == "Fall":
@@ -129,15 +137,22 @@ func flip_player():
 # Death and respawn functions
 func death_tween():
 	var tween = create_tween()
+	lives -= 2
+	$"..".update_lives(lives)
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.15)
 	await tween.finished
 	set_position(Vector2(0, 0))
+	$"..".player_dead = true
 	await get_tree().create_timer(3).timeout
 	velocity.y = 0
 	set_position(Vector2(155, 0))
-	respawn_tween()
+	if lives > 0:
+		respawn_tween()
+	else:
+		game_over()
 
 func respawn_tween():
+	anim.material.set_shader_parameter("active", false)
 	var tween = create_tween()
 	tween.stop(); tween.play()
 	tween.tween_property(self, "scale", Vector2.ONE, 0.15) 
@@ -149,8 +164,18 @@ func jump_tween():
 
 func _on_sword_hurtbox_body_entered(body): #Lets the sword's hitbox stop bases
 	if body.is_in_group("Base"):
-		body.queue_free()
+		body.ouch()
 	pass # Replace with function body.
 
 func _on_player_hitbox_body_entered(body):
 	pass # Replace with function body.
+	
+func ouch():
+	anim.material.set_shader_parameter("active", true)
+	set_physics_process(false)
+	await get_tree().create_timer(0.1).timeout
+	death_tween()
+	set_physics_process(true)
+	
+func game_over():
+	pass

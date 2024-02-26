@@ -1,14 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://cjanwm3sy2x37"]
+[gd_scene load_steps=13 format=3 uid="uid://cjanwm3sy2x37"]
 
 [ext_resource type="PackedScene" uid="uid://w7m6tehvvy3g" path="res://Characters/player_lvl_1.tscn" id="1_0511s"]
+[ext_resource type="Script" path="res://World/lvl_1.gd" id="1_dnhna"]
 [ext_resource type="Texture2D" uid="uid://o2i1dl5uffha" path="res://Assets/Textures/Tilesheet/tilemap.png" id="2_kvuq0"]
 [ext_resource type="PackedScene" uid="uid://bxyc5geuerhbe" path="res://Characters/enemy.tscn" id="2_qxas3"]
-[ext_resource type="Shader" path="res://World/water.gdshader" id="3_3lkte"]
+[ext_resource type="Texture2D" uid="uid://dxm7xv0oixqie" path="res://healthFull.png" id="3_y78ou"]
 
 [sub_resource type="Environment" id="Environment_0qi0o"]
 background_mode = 3
 background_color = Color(0.345098, 0.341176, 0.337255, 1)
 background_energy_multiplier = 0.0
+ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.0
 glow_enabled = true
 glow_levels/1 = 5.0
@@ -704,46 +706,18 @@ physics_layer_0/collision_mask = 6
 sources/0 = SubResource("TileSetAtlasSource_jrp8l")
 sources/1 = SubResource("TileSetAtlasSource_xwbi1")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_emcpt"]
-noise_type = 4
-seed = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qeu13"]
-seamless = true
-normalize = false
-noise = SubResource("FastNoiseLite_emcpt")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ihkhp"]
-seed = -2
-frequency = 0.0222
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ucdth"]
-seamless = true
-normalize = false
-noise = SubResource("FastNoiseLite_ihkhp")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g866l"]
-shader = ExtResource("3_3lkte")
-shader_parameter/scroll1 = Vector2(0.09, 0.05)
-shader_parameter/scroll2 = Vector2(0.01, -0.05)
-shader_parameter/distortion_strength = 4.75e-08
-shader_parameter/tone_color = Color(1, 1, 1, 0.913725)
-shader_parameter/top_color = Color(0.784314, 0.784314, 0.784314, 1)
-shader_parameter/light_start = 0.3
-shader_parameter/light_end = 0.625
-shader_parameter/noise1 = SubResource("NoiseTexture2D_qeu13")
-shader_parameter/noise2 = SubResource("NoiseTexture2D_ucdth")
 
-[node name="lvl1" type="Node2D"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ska0b"]
+
+[sub_resource type="Theme" id="Theme_r4app"]
+VSeparator/styles/separator = SubResource("StyleBoxEmpty_ska0b")
+
+[node name="lvl1" type="Node2D" groups=["Map"]]
+script = ExtResource("1_dnhna")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0qi0o")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -416.0
-offset_right = 1088.0
-offset_bottom = 672.0
-color = Color(0, 0, 0, 1)
 
 [node name="player_Lvl1" parent="." instance=ExtResource("1_0511s")]
 texture_filter = 1
@@ -770,8 +744,57 @@ offset_right = 1096.0
 offset_bottom = 720.0
 color = Color(1, 1, 1, 0)
 
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="First" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_y78ou")
+stretch_mode = 5
+
+[node name="Second" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_y78ou")
+stretch_mode = 5
+
+[node name="Third" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_y78ou")
+stretch_mode = 5
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+theme = SubResource("Theme_r4app")
+
+[node name="Score" type="Label" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(125, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Score: 
+0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="enemy" parent="." instance=ExtResource("2_qxas3")]
 position = Vector2(808, 496)
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
 position = Vector2(155, 315)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(500, 360)
+
+[node name="ScoreTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="projectile_finished" from="." to="." method="_on_projectile_finished"]

@@ -15,8 +15,8 @@ var compoundArray = [["AgCl","Neutral"],["BaCrO₄","Base"],["CCl₄","Neutral"]
 @onready var acidParticles = $Explosion/AcidParticles
 @onready var baseParticles = $Explosion/BaseParticles
 @onready var neutralParticles = $Explosion/NeutralParticles
-
 func _ready():
+	projectile_sprite.material.set_shader_parameter("active", false)
 	acidParticles.emitting = false
 	baseParticles.emitting = false
 	neutralParticles.emitting = false
@@ -36,14 +36,15 @@ func _physics_process(delta):
 	
 	if (self.position == positionB):
 		
-		if not handled: #
-			
+		if not handled:
 			if is_in_group("Acid"):
 				acidParticles.emitting=true
+				await get_tree().create_timer(0.1).timeout
 				acidExplosion.disabled=false
 			
 			if is_in_group("Base"):
 				baseParticles.emitting=true
+				await get_tree().create_timer(0.1).timeout
 				baseExplosion.disabled=false
 			
 			if is_in_group("Both"):
@@ -59,6 +60,8 @@ func _physics_process(delta):
 		await get_tree().create_timer(0.5).timeout
 		acidExplosion.disabled=true
 		baseExplosion.disabled=true
+		if not handled:
+			$"..".projectile_finished.emit()
 		await get_tree().create_timer(3).timeout
 		queue_free()
 		handled=false
@@ -68,8 +71,16 @@ func _on_area_2d_body_entered(body):
 	print("Hit with " + group)
 	
 func _on_explosion_body_entered(body):
-	body.death_tween() # Replace with function body.
+	body.ouch()
+	#body.death_tween() # Replace with function body.
 	
 func disable():
 	projectile_sprite.hide()
 	$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
+func ouch():
+	projectile_sprite.material.set_shader_parameter("active", true)
+	set_physics_process(false)
+	await get_tree().create_timer(0.1).timeout
+	set_physics_process(true)
+	queue_free()
+	

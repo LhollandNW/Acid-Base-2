@@ -1,8 +1,9 @@
-[gd_scene load_steps=57 format=3 uid="uid://w7m6tehvvy3g"]
+[gd_scene load_steps=59 format=3 uid="uid://w7m6tehvvy3g"]
 
 [ext_resource type="Script" path="res://Characters/player_lvl1.gd" id="1_qnlkq"]
 [ext_resource type="Texture2D" uid="uid://7egjl2nikk2x" path="res://Assets/Animations/Player/adventurer-attack1-00.png" id="2_emgab"]
 [ext_resource type="Texture2D" uid="uid://d0bnul87wxart" path="res://Assets/Animations/Player/adventurer-attack2-00.png" id="2_pnd72"]
+[ext_resource type="Shader" path="res://World/inverse.gdshader" id="2_r44k2"]
 [ext_resource type="Texture2D" uid="uid://b36n8ph2k0sbm" path="res://Assets/Animations/Player/adventurer-attack2-01.png" id="3_0f4hp"]
 [ext_resource type="Texture2D" uid="uid://d1v5kdsn8tdan" path="res://Assets/Animations/Player/adventurer-attack1-01.png" id="3_vhwex"]
 [ext_resource type="Texture2D" uid="uid://cjuyprcm4ksqn" path="res://Assets/Animations/Player/adventurer-attack2-02.png" id="4_3vi8e"]
@@ -51,6 +52,10 @@
 [ext_resource type="Texture2D" uid="uid://dw564pefu1bf1" path="res://Assets/Animations/Player/adventurer-wall-slide-00.png" id="45_6xd52"]
 [ext_resource type="Texture2D" uid="uid://cdinj2ds5f06u" path="res://Assets/Animations/Player/adventurer-wall-slide-01.png" id="46_l7qja"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ogv5k"]
+shader = ExtResource("2_r44k2")
+shader_parameter/active = false
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_nclx7"]
 animations = [{
 "frames": [{
@@ -65,16 +70,16 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 3.0,
+"duration": 7.0,
 "texture": ExtResource("2_emgab")
 }, {
-"duration": 4.0,
+"duration": 10.0,
 "texture": ExtResource("3_vhwex")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("4_nehw8")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("5_tftck")
 }, {
 "duration": 1.0,
@@ -82,22 +87,22 @@ animations = [{
 }],
 "loop": false,
 "name": &"Attack_1",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [{
-"duration": 3.0,
+"duration": 5.0,
 "texture": ExtResource("2_pnd72")
 }, {
-"duration": 2.0,
+"duration": 5.0,
 "texture": ExtResource("3_0f4hp")
 }, {
-"duration": 2.0,
+"duration": 4.0,
 "texture": ExtResource("4_3vi8e")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": ExtResource("5_sp5oi")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("6_484iu")
 }, {
 "duration": 1.0,
@@ -105,19 +110,19 @@ animations = [{
 }],
 "loop": false,
 "name": &"Attack_2",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [{
-"duration": 3.0,
+"duration": 6.0,
 "texture": ExtResource("13_ktanv")
 }, {
-"duration": 3.0,
+"duration": 6.0,
 "texture": ExtResource("14_ycwft")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": ExtResource("15_lr8vg")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": ExtResource("16_x2vd0")
 }, {
 "duration": 1.0,
@@ -128,7 +133,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Attack_3",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 4.0,
@@ -276,7 +281,7 @@ animations = [{
 size = Vector2(22, 84.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_garp5"]
-size = Vector2(38, 62)
+size = Vector2(22, 43)
 
 [sub_resource type="Curve" id="Curve_bqjfj"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.247191, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -294,23 +299,26 @@ collision_mask = 3
 script = ExtResource("1_qnlkq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_ogv5k")
 position = Vector2(0, 2)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_nclx7")
-animation = &"Appearing"
+animation = &"Attack_2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, -2)
 shape = SubResource("RectangleShape2D_hkj8t")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="SwordHurtbox" type="Area2D" parent="." groups=["Sword"]]
 collision_layer = 0
 collision_mask = 4
 
 [node name="Box" type="CollisionShape2D" parent="SwordHurtbox"]
-position = Vector2(38, 2)
+position = Vector2(32, -1)
 shape = SubResource("RectangleShape2D_garp5")
 disabled = true
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="ParticleTrails" type="CPUParticles2D" parent="."]
 position = Vector2(0, 19)
@@ -342,6 +350,7 @@ collision_mask = 4
 [node name="Box" type="CollisionShape2D" parent="PlayerHitbox"]
 position = Vector2(5, -7.125)
 shape = SubResource("RectangleShape2D_pke3y")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="body_entered" from="SwordHurtbox" to="." method="_on_sword_hurtbox_body_entered"]

@@ -1,4 +1,5 @@
 extends Node2D
+signal projectile_finished
 const enemyProjectileScn = preload("res://Projectiles/enemy_projectile.tscn")
 @onready var enemy_sprite = $AnimatedSprite2D
 @onready var formula = $FormulaLabel
@@ -39,3 +40,7 @@ func _on_attack_duration_timer_timeout():
 	enemy_sprite.play("Idle")
 	hit_animation_playing = false
 	attack_timer.start()  # Restart the attack timer for the next attack cycle
+
+
+func _on_projectile_finished():
+	$"..".projectile_finished.emit() # Replace with function body.

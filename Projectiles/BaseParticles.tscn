@@ -8,7 +8,7 @@ particles_anim_v_frames = 1
 particles_anim_loop = true
 
 [sub_resource type="Gradient" id="Gradient_tddxi"]
-offsets = PackedFloat32Array(0, 0.433333, 0.806667, 1)
+offsets = PackedFloat32Array(0, 0.326667, 0.78, 1)
 colors = PackedColorArray(0.864861, 0.854491, 0.971888, 1, 1.2, 0.271, 2, 1, 0.34902, 0, 0.47451, 0.388235, 0, 0, 0, 0)
 
 [node name="BaseParticles" type="CPUParticles2D"]
@@ -25,18 +25,18 @@ lifetime_randomness = 0.15
 emission_shape = 3
 emission_rect_extents = Vector2(4, 4)
 direction = Vector2(0, -1)
-spread = 3.0
+spread = 0.0
 gravity = Vector2(0, 10)
 initial_velocity_min = 24.0
-initial_velocity_max = 160.0
+initial_velocity_max = 180.0
 angular_velocity_min = -10.0
 angular_velocity_max = 10.0
 orbit_velocity_min = -0.01
 orbit_velocity_max = 0.01
 linear_accel_min = -10.0
 linear_accel_max = -5.0
-radial_accel_min = -50.0
-radial_accel_max = 50.0
+radial_accel_min = -100.0
+radial_accel_max = 100.0
 tangential_accel_min = -5.0
 tangential_accel_max = 5.0
 damping_min = 5.0
