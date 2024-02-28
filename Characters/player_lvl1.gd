@@ -165,6 +165,7 @@ func jump_tween():
 func _on_sword_hurtbox_body_entered(body): #Lets the sword's hitbox stop bases
 	if body.is_in_group("Base"):
 		body.ouch()
+		$"..".projectile_finished.emit()
 	pass # Replace with function body.
 
 func _on_player_hitbox_body_entered(body):

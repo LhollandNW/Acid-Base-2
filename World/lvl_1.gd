@@ -11,7 +11,6 @@ func update_score():
 	$CanvasLayer/PanelContainer/HBoxContainer/Score.text = "Score:\n" + str(points)
 	
 func update_lives(lives: int):
-	print(lives)
 	if lives == 6:
 		$CanvasLayer/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
 		$CanvasLayer/PanelContainer/HBoxContainer/Second.set_texture(fullHeart)

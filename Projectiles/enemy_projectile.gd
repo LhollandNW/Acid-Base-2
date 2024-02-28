@@ -75,10 +75,6 @@ func _physics_process(delta):
 		await get_tree().create_timer(3).timeout
 		queue_free()
 		handled=false
-
-func _on_area_2d_body_entered(body):
-	var group = get_groups()[0]
-	print("Hit with " + group)
 	
 func _on_explosion_body_entered(body):
 	body.ouch()

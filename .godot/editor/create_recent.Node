@@ -1,14 +1,14 @@
-Timer
 Label
+TextureRect
+ColorRect
+Timer
 RichTextLabel
 VSeparator
 HSeparator
-TextureRect
 HBoxContainer
 PanelContainer
 Camera2D
 Polygon2D
 CollisionPolygon2D
 RigidBody2D
-ColorRect
 Sprite2D
