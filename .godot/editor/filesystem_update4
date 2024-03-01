@@ -1,10 +1,13 @@
 res://Characters/player_lvl_1.tscn
-res://World/inverse.gdshader
 res://Characters/player_lvl1.gd
+res://World/inverse.gdshader
 res://World/water.gdshader
+res://World/water.tres
+res://World/MovingBackground.gd
 res://Characters/enemy.tscn
 res://Projectiles/enemy_projectile.tscn
 res://World/lvl_1.tscn
-res://Projectiles/enemy_projectile.gd
 res://World/lvl_1.gd
 res://HUD.gd
+res://hud.tscn
+res://World/hud.gd
