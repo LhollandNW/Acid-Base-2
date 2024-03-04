@@ -303,7 +303,7 @@ material = SubResource("ShaderMaterial_ogv5k")
 position = Vector2(0, 2)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_nclx7")
-animation = &"Jump"
+animation = &"Fall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, -2)

@@ -9,7 +9,8 @@ func _ready():
 	gameOverScreen.hide()
 	$Control/VictoryAnims.hide()
 func _physics_process(delta):
-	$Control/VictoryAnims/Duckdance.play("default")
+	$Control/VictoryAnims/Duckdance.play("duck")
+	$Control/VictoryAnims/PlayerVictory.play("player")
 func game_start():
 	inGamePanel.show()
 	gameOverScreen.hide()
