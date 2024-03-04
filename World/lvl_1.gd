@@ -2,59 +2,68 @@ extends Node2D
 signal projectile_finished
 @onready var fullHeart = preload("res://healthFull.png")
 @onready var halfHeart = preload("res://healthHalf.png")
-@onready var points = 0
+@onready var score = 0
+@onready var highscore = 0
+@onready var paused = false
 @onready var player_dead = false
 	
 func update_score():
 	if not player_dead:
-		points += 1
-	$HUD/PanelContainer/HBoxContainer/Score.text = "Score:\n" + str(points)
-	gameover()
+		score += 1
+		if (highscore<score):
+			highscore = score
+	$hud/PanelContainer/HBoxContainer/Score.text = "Score:\n" + str(score)
 	
 func update_lives(lives: int):
 	if lives == 6:
-		$HUD/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
-		$HUD/PanelContainer/HBoxContainer/Second.set_texture(fullHeart)
-		$HUD/PanelContainer/HBoxContainer/Third.set_texture(fullHeart)
+		$hud/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
+		$hud/PanelContainer/HBoxContainer/Second.set_texture(fullHeart)
+		$hud/PanelContainer/HBoxContainer/Third.set_texture(fullHeart)
 	elif lives == 5:
-		$HUD/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
-		$HUD/PanelContainer/HBoxContainer/Second.set_texture(fullHeart)
-		$HUD/PanelContainer/HBoxContainer/Third.set_texture(halfHeart)
+		$hud/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
+		$hud/PanelContainer/HBoxContainer/Second.set_texture(fullHeart)
+		$hud/PanelContainer/HBoxContainer/Third.set_texture(halfHeart)
 	elif lives == 4:
-		$HUD/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
-		$HUD/PanelContainer/HBoxContainer/Second.set_texture(fullHeart)
-		$HUD/PanelContainer/HBoxContainer/Third.set_texture(null)
+		$hud/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
+		$hud/PanelContainer/HBoxContainer/Second.set_texture(fullHeart)
+		$hud/PanelContainer/HBoxContainer/Third.set_texture(null)
 	elif lives == 3:
-		$HUD/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
-		$HUD/PanelContainer/HBoxContainer/Second.set_texture(halfHeart)
-		$HUD/PanelContainer/HBoxContainer/Third.set_texture(null)
+		$hud/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
+		$hud/PanelContainer/HBoxContainer/Second.set_texture(halfHeart)
+		$hud/PanelContainer/HBoxContainer/Third.set_texture(null)
 	elif lives == 2:
-		$HUD/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
-		$HUD/PanelContainer/HBoxContainer/Second.set_texture(null)
-		$HUD/PanelContainer/HBoxContainer/Third.set_texture(null)
+		$hud/PanelContainer/HBoxContainer/First.set_texture(fullHeart)
+		$hud/PanelContainer/HBoxContainer/Second.set_texture(null)
+		$hud/PanelContainer/HBoxContainer/Third.set_texture(null)
 	elif lives == 1:
-		$HUD/PanelContainer/HBoxContainer/First.set_texture(halfHeart)
-		$HUD/PanelContainer/HBoxContainer/Second.set_texture(null)
-		$HUD/PanelContainer/HBoxContainer/Third.set_texture(null)
+		$hud/PanelContainer/HBoxContainer/First.set_texture(halfHeart)
+		$hud/PanelContainer/HBoxContainer/Second.set_texture(null)
+		$hud/PanelContainer/HBoxContainer/Third.set_texture(null)
 	elif lives <= 0:
-		$HUD/PanelContainer/HBoxContainer/First.set_texture(null)
-		$HUD/PanelContainer/HBoxContainer/Second.set_texture(null)
-		$HUD/PanelContainer/HBoxContainer/Third.set_texture(null)
+		$hud/PanelContainer/HBoxContainer/First.set_texture(null)
+		$hud/PanelContainer/HBoxContainer/Second.set_texture(null)
+		$hud/PanelContainer/HBoxContainer/Third.set_texture(null)
 		gameover()
 		
 func _on_projectile_finished():
 	update_score()
-	player_dead = false;
+	player_dead = false
 	
 func gameover():
-	#stop physics
-	#call hud gameover
-	$HUD.game_over()
-	pass
+	paused = true
+	$hud.game_over()
+	set_process(false)
+	set_physics_process(false)
+	$enemy.set_process(false)
+	$enemy.set_physics_process(false)
+	
 func restart():
-	#start physics
-	#reset values
-	#call hud game_start
+	paused = false
+	set_process(true)
+	set_physics_process(true)
+	$enemy.set_process(true)
+	$enemy.set_physics_process(true)
+	score = -1
+	update_score()
 	$player_Lvl1.lives = 6
 	update_lives(6)
-	pass

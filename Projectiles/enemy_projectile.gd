@@ -5,7 +5,7 @@ var positionC = Vector2(-400, -200)
 var positionB = Vector2(-652, 44)
 var t = 0.0
 var duration = 3.0
-var handled = false
+@onready var handled = false
 var compoundArray = [
 					["AgCl","Neutral"],["BaCrO₄","Base"],["CCl₄","Neutral"],
 					["HClO₄","Acid"],["CO₂H","Acid"],["HNO₂","Acid"],
@@ -45,8 +45,8 @@ func _physics_process(delta):
 	self.position = q0.lerp(q1, min(t, 1.0))
 	
 	if (self.position == positionB):
-		
 		if not handled:
+			handled = true
 			if is_in_group("Acid"):
 				acidParticles.emitting=true
 				await get_tree().create_timer(0.1).timeout
@@ -62,19 +62,15 @@ func _physics_process(delta):
 			
 			if is_in_group("Neutral"):
 				neutralParticles.emitting=true
-				
-			handled = true
-			
+			await get_tree().create_timer(0.5).timeout
+			$"..".projectile_finished.emit()
 		formula.hide()
 		disable()
 		await get_tree().create_timer(0.5).timeout
 		acidExplosion.disabled=true
 		baseExplosion.disabled=true
-		if not handled:
-			$"..".projectile_finished.emit()
 		await get_tree().create_timer(3).timeout
 		queue_free()
-		handled=false
 	
 func _on_explosion_body_entered(body):
 	body.ouch()
@@ -83,6 +79,7 @@ func _on_explosion_body_entered(body):
 func disable():
 	projectile_sprite.hide()
 	$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
+	
 func ouch():
 	projectile_sprite.material.set_shader_parameter("active", true)
 	set_physics_process(false)

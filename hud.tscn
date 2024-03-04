@@ -1,25 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://cei4ksh8r3g52"]
+[gd_scene load_steps=7 format=3 uid="uid://cei4ksh8r3g52"]
 
 [ext_resource type="Texture2D" uid="uid://dxm7xv0oixqie" path="res://healthFull.png" id="1_2t3f8"]
 [ext_resource type="Script" path="res://World/hud.gd" id="1_r5ayd"]
+[ext_resource type="Theme" uid="uid://bq3lejhdqdsv5" path="res://Game_Theme.tres" id="2_gtp76"]
+[ext_resource type="Theme" uid="uid://d31rns0bis8jm" path="res://Menu_Theme.tres" id="3_27yuy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ska0b"]
 
 [sub_resource type="Theme" id="Theme_vyxhy"]
 VSeparator/styles/separator = SubResource("StyleBoxEmpty_ska0b")
 
-[node name="HUD" type="CanvasLayer"]
+[node name="hud" type="CanvasLayer"]
 script = ExtResource("1_r5ayd")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 100.0
+offset_bottom = 115.0
 grow_horizontal = 2
-
-[node name="ColorRect" type="ColorRect" parent="PanelContainer"]
-layout_mode = 2
-color = Color(0.384314, 0.384314, 0.384314, 1)
+theme = ExtResource("2_gtp76")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -50,6 +49,7 @@ theme = SubResource("Theme_vyxhy")
 [node name="Score" type="Label" parent="PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(125, 100)
 layout_mode = 2
+theme = ExtResource("2_gtp76")
 theme_override_font_sizes/font_size = 25
 text = "Score: 
 0"
@@ -62,20 +62,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -43.5
-offset_top = -11.5
-offset_right = 43.5
-offset_bottom = 11.5
+offset_left = -262.0
+offset_top = -180.0
+offset_right = 262.0
+offset_bottom = 181.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("3_27yuy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOverScreen"]
 layout_mode = 2
 
 [node name="GameOverText" type="Label" parent="GameOverScreen/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_27yuy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -89,7 +91,7 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="GameOverText2" type="Label" parent="GameOverScreen/VBoxContainer/HBoxContainer"]
+[node name="Score" type="Label" parent="GameOverScreen/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -102,7 +104,7 @@ text = "Score:
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameOverText3" type="Label" parent="GameOverScreen/VBoxContainer/HBoxContainer"]
+[node name="HighScore" type="Label" parent="GameOverScreen/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1

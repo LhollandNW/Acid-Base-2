@@ -27,10 +27,12 @@ func enemy_animations():
 			enemy_sprite.play("Idle")
 
 func _on_attack_timer_timeout():
-	enemy_sprite.play("Hit")
-	hit_animation_playing = true
-	attack_duration_timer.start()
-	attack()
+	if ($"..".paused == false):
+		enemy_sprite.play("Hit")
+		hit_animation_playing = true
+		attack_duration_timer.start()
+		attack()
+	else: enemy_sprite.play("Idle")
 	
 func attack():
 	var compound = enemyProjectileScn.instantiate()

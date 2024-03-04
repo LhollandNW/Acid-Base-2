@@ -19,6 +19,8 @@ func game_start():
 func game_over():
 	inGamePanel.hide()
 	gameOverScreen.show()
+	$GameOverScreen/VBoxContainer/HBoxContainer/Score.text = "Score:\n" + str($"..".score)
+	$GameOverScreen/VBoxContainer/HBoxContainer/HighScore.text = "High Score:\n" + str($"..".highscore)
 	pass
 	
 
@@ -28,7 +30,7 @@ func _on_restart_pressed():
 
 
 func _on_main_menu_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://menu.tscn")
 
 
 func _on_tutorial_pressed():

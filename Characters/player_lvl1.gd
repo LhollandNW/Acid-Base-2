@@ -30,8 +30,6 @@ var player_attacks = [
 ]
 
 # --------- FUNCTIONS ---------- #
-func _ready():
-	pass
 func _physics_process(_delta):
 	movement(_delta)
 	if Input.is_action_just_pressed("Attack") and is_on_floor():
@@ -86,7 +84,6 @@ func _physics_process(_delta):
 			returning = false
 			positionA = self.position
 			t=0.0
-			
 #Handles animations to ensure no animations overwrite an ongoing one unless its supposed to
 func _on_AnimatedSprite_animation_finished(): 
 	if anim.animation in player_attacks: #if attack 1, 2, or 3 finishes playing, it disables the sword's hitbox
@@ -148,8 +145,6 @@ func death_tween():
 	set_position(Vector2(155, 0))
 	if lives > 0:
 		respawn_tween()
-	else:
-		game_over()
 
 func respawn_tween():
 	anim.material.set_shader_parameter("active", false)
@@ -177,6 +172,3 @@ func ouch():
 	await get_tree().create_timer(0.1).timeout
 	death_tween()
 	set_physics_process(true)
-	
-func game_over():
-	pass
