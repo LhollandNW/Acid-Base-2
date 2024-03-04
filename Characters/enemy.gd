@@ -1,4 +1,6 @@
 extends Node2D
+
+# --------- VARIABLES ---------- #
 signal projectile_finished
 const enemyProjectileScn = preload("res://Projectiles/enemy_projectile.tscn")
 @onready var enemy_sprite = $AnimatedSprite2D
@@ -7,12 +9,8 @@ const enemyProjectileScn = preload("res://Projectiles/enemy_projectile.tscn")
 @onready var attack_duration_timer = $AttackDurationTimer  # Replace with the actual path to your attack duration timer
 var victory = false
 var hit_animation_playing = false
-# Called when the node enters the scene tree for the first time.
 
-func _ready():
-	pass  # Replace with function body.
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# --------- FUNCTIONS ---------- #
 func _physics_process(delta):
 	enemy_animations()
 

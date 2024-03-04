@@ -11,19 +11,22 @@ script = ExtResource("1_ruhbh")
 [node name="Panel" type="Panel" parent="."]
 offset_right = 1000.0
 offset_bottom = 720.0
+theme = ExtResource("1_nrrgv")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_x828l")
 
-[node name="Title" type="Label" parent="Panel"]
+[node name="Title" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
 offset_left = 40.0
 offset_top = 16.0
 offset_right = 968.0
 offset_bottom = 132.0
 size_flags_vertical = 0
 size_flags_stretch_ratio = 2.0
-theme_override_font_sizes/font_size = 80
-text = "[Insert Game Title Here]"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[center][color=dark_red]Acid[/color] [color=deepskyblue]Base[/color][/center]"
 
 [node name="PanelContainer" type="PanelContainer" parent="Panel"]
 layout_mode = 1
@@ -48,17 +51,18 @@ size_flags_vertical = 8
 
 [node name="Level1" type="Button" parent="Panel/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme = ExtResource("1_nrrgv")
+theme_override_font_sizes/font_size = 32
 text = "Play Level 1"
 
 [node name="Level2" type="Button" parent="Panel/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 32
 text = "Play Level 2"
 
 [node name="Tutorial" type="Button" parent="Panel/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 32
 text = "Start Tutorial"
 
 [connection signal="pressed" from="Panel/PanelContainer/VBoxContainer/Level1" to="." method="_on_level_1_pressed"]

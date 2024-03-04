@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+# --------- VARIABLES ---------- #
 var positionA = Vector2(0, 0)
 var positionC = Vector2(-400, -200)
 var positionB = Vector2(-652, 44)
@@ -15,7 +16,7 @@ var compoundArray = [
 					["Mg(OH)₂","Base"],["HCl","Acid"],["HNO₃","Acid"],
 					["K₃PO₄","Base"],["KNO₃","Neutral"],["KNO₂","Base"],
 					["NaBr","Neutral"],["KMnO₄","Base"],["Ca(ClO₃)₂","Base"],["H₂O","Both"]
-					]
+					] 
 @onready var formula = $FormulaLabel
 @onready var projectile_sprite = $Sprite2D
 @onready var projectile = self
@@ -25,6 +26,7 @@ var compoundArray = [
 @onready var baseParticles = $Explosion/BaseParticles
 @onready var neutralParticles = $Explosion/NeutralParticles
 
+# --------- FUNCTIONS ---------- #
 func _ready():
 	projectile_sprite.material.set_shader_parameter("active", false)
 	acidParticles.emitting = false

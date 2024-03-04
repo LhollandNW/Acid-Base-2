@@ -1,6 +1,10 @@
-ColorRect
-Panel
+Control
 Container
+ColorRect
+AnimatedSprite2D
+Sprite2D
+RichTextLabel
+Panel
 TileMap
 CanvasLayer
 PanelContainer
@@ -8,7 +12,3 @@ VBoxContainer
 Button
 Label
 HBoxContainer
-Sprite2D
-ParallaxBackground
-ParallaxLayer
-TextureRect

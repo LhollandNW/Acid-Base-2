@@ -86,13 +86,15 @@ func _physics_process(_delta):
 			t=0.0
 #Handles animations to ensure no animations overwrite an ongoing one unless its supposed to
 func _on_AnimatedSprite_animation_finished(): 
-	if anim.animation in player_attacks: #if attack 1, 2, or 3 finishes playing, it disables the sword's hitbox
+	if anim.animation in player_attacks:
+		 #if attack 1, 2, or 3 finishes playing, it disables the sword's hitbox
 		attacking = false
 		sword.disabled=true
 		anim.play("Idle")
 	elif anim.animation == "Jump" and !is_on_floor():
 		anim.play("Fall")
-		return  # Skip the rest of the function to avoid playing "Idle" during jumps
+		return 
+		 # Skip the rest of the function to avoid playing "Idle" during jumps
 	elif anim.animation == "Dodge" and is_on_floor():
 		anim.play("Idle")
 		return
@@ -113,7 +115,7 @@ func movement(delta):
 	# Simple Gravity Calculation
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	# Moves player if they are not attacking
+	# lets player move if they are not attacking
 	if not attacking:
 		var inputAxis = Input.get_axis("Left", "Right")
 		velocity = Vector2(inputAxis * move_speed, velocity.y)

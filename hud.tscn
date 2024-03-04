@@ -1,14 +1,46 @@
-[gd_scene load_steps=7 format=3 uid="uid://cei4ksh8r3g52"]
+[gd_scene load_steps=14 format=3 uid="uid://cei4ksh8r3g52"]
 
 [ext_resource type="Texture2D" uid="uid://dxm7xv0oixqie" path="res://healthFull.png" id="1_2t3f8"]
 [ext_resource type="Script" path="res://World/hud.gd" id="1_r5ayd"]
 [ext_resource type="Theme" uid="uid://bq3lejhdqdsv5" path="res://Game_Theme.tres" id="2_gtp76"]
 [ext_resource type="Theme" uid="uid://d31rns0bis8jm" path="res://Menu_Theme.tres" id="3_27yuy"]
+[ext_resource type="Texture2D" uid="uid://d05584uiyuoux" path="res://Assets/Animations/Duck/Jump (36x36).png" id="5_4lxbw"]
+[ext_resource type="Texture2D" uid="uid://caydv5aqhxk4a" path="res://Assets/Animations/Duck/Fall (36x36).png" id="6_qst15"]
+[ext_resource type="Texture2D" uid="uid://bmiyncj72wt8f" path="res://Assets/Animations/Duck/Idle (36x36).png" id="7_jk07a"]
+[ext_resource type="Shader" path="res://blur.gdshader" id="8_26llr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ska0b"]
 
 [sub_resource type="Theme" id="Theme_vyxhy"]
 VSeparator/styles/separator = SubResource("StyleBoxEmpty_ska0b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mtd2u"]
+shader = ExtResource("8_26llr")
+shader_parameter/lod = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u87r3"]
+atlas = ExtResource("7_jk07a")
+region = Rect2(216, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y573v"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": ExtResource("5_4lxbw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u87r3")
+}, {
+"duration": 5.0,
+"texture": ExtResource("6_qst15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u87r3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
 
 [node name="hud" type="CanvasLayer"]
 script = ExtResource("1_r5ayd")
@@ -50,88 +82,127 @@ theme = SubResource("Theme_vyxhy")
 custom_minimum_size = Vector2(125, 100)
 layout_mode = 2
 theme = ExtResource("2_gtp76")
-theme_override_font_sizes/font_size = 25
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 32
 text = "Score: 
 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameOverScreen" type="PanelContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+material = SubResource("ShaderMaterial_mtd2u")
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverScreen" type="PanelContainer" parent="Control"]
+layout_direction = 1
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -262.0
-offset_top = -180.0
-offset_right = 262.0
-offset_bottom = 181.0
+offset_left = -296.5
+offset_top = -180.5
+offset_right = 296.5
+offset_bottom = 180.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("3_27yuy")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOverScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/GameOverScreen"]
 layout_mode = 2
 
-[node name="GameOverText" type="Label" parent="GameOverScreen/VBoxContainer"]
+[node name="GameOverText" type="Label" parent="Control/GameOverScreen/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_27yuy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 90
-text = "GAME OVER"
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 128
+text = "YOU WIN!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameOverScreen/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/GameOverScreen/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Score" type="Label" parent="GameOverScreen/VBoxContainer/HBoxContainer"]
+[node name="Score" type="Label" parent="Control/GameOverScreen/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 32
 text = "Score:
 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HighScore" type="Label" parent="GameOverScreen/VBoxContainer/HBoxContainer"]
+[node name="HighScore" type="Label" parent="Control/GameOverScreen/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 32
 text = "High Score:
 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Restart" type="Button" parent="GameOverScreen/VBoxContainer"]
+[node name="Restart" type="Button" parent="Control/GameOverScreen/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 32
 text = "Restart"
 
-[node name="MainMenu" type="Button" parent="GameOverScreen/VBoxContainer"]
+[node name="MainMenu" type="Button" parent="Control/GameOverScreen/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 32
 text = "Return to Main Menu"
 
-[node name="Tutorial" type="Button" parent="GameOverScreen/VBoxContainer"]
+[node name="Tutorial" type="Button" parent="Control/GameOverScreen/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 32
 text = "Return to Tutorial"
 
-[connection signal="pressed" from="GameOverScreen/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="GameOverScreen/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="GameOverScreen/VBoxContainer/Tutorial" to="." method="_on_tutorial_pressed"]
+[node name="VictoryAnims" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Duckdance" type="AnimatedSprite2D" parent="Control/VictoryAnims"]
+position = Vector2(736, 160)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_y573v")
+frame_progress = 0.13517
+
+[connection signal="pressed" from="Control/GameOverScreen/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Control/GameOverScreen/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Control/GameOverScreen/VBoxContainer/Tutorial" to="." method="_on_tutorial_pressed"]
