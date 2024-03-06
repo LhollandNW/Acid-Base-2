@@ -37,7 +37,6 @@ func _ready():
 	var selection = randi_range(0, compoundArray.size() - 1)
 	add_to_group(compoundArray[selection][1])
 	formula.text = compoundArray[selection][0]
-	pass # Replace with function body.
 	
 func _physics_process(delta):
 	rotation = 0.00
@@ -76,7 +75,6 @@ func _physics_process(delta):
 	
 func _on_explosion_body_entered(body):
 	body.ouch()
-	#body.death_tween() # Replace with function body.
 	
 func disable():
 	projectile_sprite.hide()

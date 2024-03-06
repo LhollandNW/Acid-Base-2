@@ -15,7 +15,7 @@ func update_score():
 		score += 1
 		if (highscore<score):
 			highscore = score
-		if (score > 5):
+		if (score >= 15):
 			victory = true
 	$hud/PanelContainer/HBoxContainer/Score.text = "Score:\n" + str(score)
 	

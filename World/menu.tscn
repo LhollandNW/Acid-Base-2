@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://di8w1a601aass"]
+[gd_scene load_steps=5 format=3 uid="uid://di8w1a601aass"]
 
 [ext_resource type="Theme" uid="uid://d31rns0bis8jm" path="res://Menu_Theme.tres" id="1_nrrgv"]
-[ext_resource type="Script" path="res://mainmenu.gd" id="1_ruhbh"]
+[ext_resource type="Script" path="res://World/mainmenu.gd" id="1_ruhbh"]
+[ext_resource type="PackedScene" uid="uid://dwd8ry3kcc7gm" path="res://Projectiles/bubble_particles.tscn" id="2_sjy2v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x828l"]
 
@@ -13,6 +14,22 @@ offset_right = 1000.0
 offset_bottom = 720.0
 theme = ExtResource("1_nrrgv")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_x828l")
+
+[node name="BubbleParticles" parent="Panel" instance=ExtResource("2_sjy2v")]
+texture_filter = 1
+position = Vector2(500, 720)
+amount = 8
+lifetime = 6.0
+explosiveness = 0.1
+randomness = 0.5
+emission_rect_extents = Vector2(500, 4)
+spread = 3.0
+gravity = Vector2(0, -10)
+initial_velocity_min = 160.0
+initial_velocity_max = 220.0
+angular_velocity_min = 5.0
+linear_accel_min = 0.0
+color_ramp = null
 
 [node name="Title" type="RichTextLabel" parent="Panel"]
 layout_mode = 0

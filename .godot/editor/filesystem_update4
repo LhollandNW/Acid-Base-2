@@ -1,6 +1,6 @@
-res://hud.tscn
-res://World/inverse.gdshader
+res://Characters/player_lvl_1.tscn
 res://Characters/player_lvl1.gd
+res://World/inverse.gdshader
 res://World/water2.gdshader
 res://World/water.tres
 res://World/water.gdshader
@@ -9,9 +9,11 @@ res://World/lvl_1.tres
 res://Game_Theme.tres
 res://Menu_Theme.tres
 res://blur.gdshader
-res://World/hud.gd
-res://Characters/player_lvl_1.tscn
+res://MainMenu.tres
 res://Characters/enemy.tscn
 res://Projectiles/enemy_projectile.tscn
 res://World/lvl_1.tscn
-res://menu.tscn
+res://World/menu.tscn
+res://World/hud.tscn
+res://World/lvl_2.tscn
+res://World/tutorial.tscn

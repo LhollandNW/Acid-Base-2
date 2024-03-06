@@ -26,7 +26,7 @@ func _on_restart_pressed():
 	game_start()
 
 func _on_main_menu_pressed():
-	get_tree().change_scene_to_file("res://menu.tscn")
+	get_tree().change_scene_to_file("res:///World/menu.tscn")
 
 func _on_tutorial_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://World/tutorial.tscn")
