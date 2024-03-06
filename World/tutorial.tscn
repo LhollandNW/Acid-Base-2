@@ -1,13 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpbbhcbxn512l"]
+[gd_scene load_steps=5 format=3 uid="uid://cpbbhcbxn512l"]
 
 [ext_resource type="Script" path="res://World/tutorial.gd" id="1_jcemv"]
 [ext_resource type="Theme" uid="uid://d31rns0bis8jm" path="res://Menu_Theme.tres" id="1_uy4lp"]
 [ext_resource type="Theme" uid="uid://q2pxe47w6snq" path="res://MainMenu.tres" id="2_7c4lv"]
+[ext_resource type="Texture2D" uid="uid://dy062gy0jp6mt" path="res://Assets/Animations/softwareDolphin-removebg-preview.png" id="2_47igm"]
 
 [node name="tutorial" type="CanvasLayer"]
 script = ExtResource("1_jcemv")
 
 [node name="Dolphin" type="Sprite2D" parent="."]
+position = Vector2(839.375, 431.75)
+rotation = 0.0575959
+scale = Vector2(0.919388, 0.837065)
+texture = ExtResource("2_47igm")
 
 [node name="Bubble Effects" type="Sprite2D" parent="."]
 
