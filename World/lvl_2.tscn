@@ -1,3 +1,13 @@
-[gd_scene format=3 uid="uid://djbecpohbnxev"]
+[gd_scene load_steps=3 format=3 uid="uid://djbecpohbnxev"]
+
+[ext_resource type="Script" path="res://World/lvl_2.gd" id="1_xnm18"]
+[ext_resource type="Texture2D" uid="uid://cn3qxivfx2vpm" path="res://Compound.png" id="2_ahvof"]
 
 [node name="lvl_2" type="Node2D"]
+script = ExtResource("1_xnm18")
+
+[node name="Container" type="Sprite2D" parent="."]
+position = Vector2(265, 144)
+texture = ExtResource("2_ahvof")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
