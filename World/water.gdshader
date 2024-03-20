@@ -9,10 +9,6 @@ uniform vec4 tone_color : source_color;
 uniform vec4 top_color : source_color;
 uniform float light_start : hint_range(0.0, 1.0) = 0.275;
 uniform float light_end : hint_range(0.0, 1.0) = 0.4;
-void vertex() {
-  // Animate Sprite2D moving in big circle around its location
-}
-
 void fragment(){
 	float depth = texture(noise1, UV + scroll1 * TIME).r * texture(noise2, UV + scroll2 * TIME).r * texture(TEXTURE, UV + scroll2 * TIME).r;
 	vec4 screen_col = texture(SCREEN_TEXTURE, SCREEN_UV + distortion_strength * vec2(depth));
@@ -23,7 +19,3 @@ void fragment(){
 	}
 }
 
-//void light() {
-	// Called for every pixel for every light affecting the CanvasItem.
-	// Uncomment to replace the default light processing function with this one.
-//}
