@@ -24,6 +24,7 @@ shapes/collision/shape_color=Color(1, 1, 1, 0.419608)
 window/size/viewport_width=1000
 window/size/viewport_height=720
 window/size/mode=2
+window/size/transparent=true
 window/stretch/mode="viewport"
 
 [gui]
@@ -61,21 +62,6 @@ Dodge={
 ]
 }
 
-[shader_globals]
+[rendering]
 
-specular_smoothness={
-"type": "float",
-"value": 0.05
-}
-outline_color={
-"type": "color",
-"value": Color(0, 0, 0, 1)
-}
-outline_width={
-"type": "float",
-"value": 4.0
-}
-fresnel_smoothness={
-"type": "float",
-"value": 0.05
-}
+textures/canvas_textures/default_texture_filter=0
