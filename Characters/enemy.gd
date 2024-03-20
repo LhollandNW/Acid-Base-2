@@ -15,14 +15,11 @@ func _physics_process(delta):
 	enemy_animations()
 
 func enemy_animations():
-	if victory: # not currently functional, as we have no victory trigger
-		enemy_sprite.play("Victory")
+	if hit_animation_playing:
+		# Do nothing while the hit animation is playing
+		pass
 	else:
-		if hit_animation_playing:
-			# Do nothing while the hit animation is playing
-			pass
-		else:
-			enemy_sprite.play("Idle")
+		enemy_sprite.play("Idle")
 
 func _on_attack_timer_timeout():
 	if ($"..".paused == false):

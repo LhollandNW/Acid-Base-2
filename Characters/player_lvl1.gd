@@ -165,9 +165,6 @@ func _on_sword_hurtbox_body_entered(body): #Lets the sword's hitbox stop bases
 		$"..".projectile_finished.emit()
 	pass # Replace with function body.
 
-func _on_player_hitbox_body_entered(body):
-	pass # Replace with function body.
-	
 func ouch():
 	anim.material.set_shader_parameter("active", true)
 	set_physics_process(false)
