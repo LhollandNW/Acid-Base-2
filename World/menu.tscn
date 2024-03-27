@@ -87,5 +87,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Start Tutorial"
 
+[node name="Credits" type="Button" parent="Panel/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Credits"
+
 [connection signal="pressed" from="Panel/PanelContainer/VBoxContainer/Level1" to="." method="_on_level_1_pressed"]
 [connection signal="pressed" from="Panel/PanelContainer/VBoxContainer/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="Panel/PanelContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
