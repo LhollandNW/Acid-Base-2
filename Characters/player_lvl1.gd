@@ -84,57 +84,64 @@ func _physics_process(_delta):
 			returning = false
 			positionA = self.position
 			t=0.0
+			
 #Handles animations to ensure no animations overwrite an ongoing one unless its supposed to
 func _on_AnimatedSprite_animation_finished(): 
-	if anim.animation in player_attacks:
-		 #if attack 1, 2, or 3 finishes playing, it disables the sword's hitbox
+	if anim.animation in player_attacks: #if attack 1, 2, or 3 finishes playing, it disables the sword's hitbox
 		attacking = false
 		sword.disabled=true
 		anim.play("Idle")
+		
 	elif anim.animation == "Jump" and !is_on_floor():
 		anim.play("Fall")
-		return 
-		 # Skip the rest of the function to avoid playing "Idle" during jumps
+		return # Skip the rest of the function to avoid playing "Idle" during jumps
+		 
 	elif anim.animation == "Dodge" and is_on_floor():
 		anim.play("Idle")
 		return
+		
 	elif anim.animation == "Dodge":
 		anim.play("Dodge")
+		
 	elif returning:
 		anim.play("Dodge")
+	
 	elif anim.animation == "Wall_Cling":
 		anim.play("Wall_Cling")
+	
 	elif anim.animation == "Fall" and !is_on_floor():
-		anim.play("Fall")
+		anim.play("Fall") # keep falling until player hits the ground
+	
 	elif anim.animation == "Walk" and Input.is_action_pressed("Right") or Input.is_action_pressed("Left"):
-		pass
+		pass # keep playing the animation while moving
+	
 	else:
 		anim.play("Idle")
 		
 func movement(delta):
-	# Simple Gravity Calculation
-	if not is_on_floor():
+	
+	if not is_on_floor():# Simple Gravity Calculation
 		velocity.y += gravity * delta
-	# lets player move if they are not attacking
-	if not attacking:
+	
+	if not attacking: # lets player move if they are not attacking
 		var inputAxis = Input.get_axis("Left", "Right")
 		velocity = Vector2(inputAxis * move_speed, velocity.y)
 		move_and_slide()
 
-# Player jump
-func jump():
+
+func jump():# Player jump function
 	if is_on_floor():
 		jump_tween()
 	velocity.y = -jump_force
 	
-func flip_player():
+func flip_player(): # flips sprite for player around for dodging and wall-clinging
 	if velocity.x < 0 and not attacking: 
 		anim.flip_h = true
 	elif velocity.x > 0 and not attacking:
 		anim.flip_h = false
 
-# Death and respawn functions
-func death_tween():
+func death_tween(): # updates lives upon death, and uses tween, or in-betweening,
+					# shrinking them to make the character seemingly disappear upon death
 	var tween = create_tween()
 	lives -= 2
 	$"..".update_lives(lives)
@@ -148,13 +155,13 @@ func death_tween():
 	if lives > 0:
 		respawn_tween()
 
-func respawn_tween():
+func respawn_tween(): # respawns the player, resizing them back to full size
 	anim.material.set_shader_parameter("active", false)
 	var tween = create_tween()
 	tween.stop(); tween.play()
 	tween.tween_property(self, "scale", Vector2.ONE, 0.15) 
 	
-func jump_tween(): 
+func jump_tween(): # stretches out the player when jumping, making the jump look realistic
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(0.65, 1.2), 0.1)
 	tween.tween_property(self, "scale", Vector2.ONE, 0.1)
@@ -163,9 +170,8 @@ func _on_sword_hurtbox_body_entered(body): #Lets the sword's hitbox stop bases
 	if body.is_in_group("Base"):
 		body.ouch()
 		$"..".projectile_finished.emit()
-	pass # Replace with function body.
-
-func ouch():
+		
+func ouch(): # when hit, inverts colors of player, freezes the game, and kills the player character
 	anim.material.set_shader_parameter("active", true)
 	set_physics_process(false)
 	await get_tree().create_timer(0.1).timeout

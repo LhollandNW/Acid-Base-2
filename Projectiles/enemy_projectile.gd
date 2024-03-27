@@ -8,15 +8,36 @@ var t = 0.0
 var duration = 3.0
 @onready var handled = false
 var compoundArray = [
-					["AgCl","Neutral"],["BaCrO₄","Base"],["CCl₄","Neutral"],
-					["HClO₄","Acid"],["CO₂H","Acid"],["HNO₂","Acid"],
-					["C₃H₈","Neutral"],["CH₃COOH","Acid"],["MgC₂O₄","Base"],
-					["HCN","Acid"],["CH₄","Neutral"],["CaCO₃","Base"],
-					["Na₂S","Base"],["K₂SO₃","Base"],["CH₃-NH₂","Base"],
-					["Mg(OH)₂","Base"],["HCl","Acid"],["HNO₃","Acid"],
-					["K₃PO₄","Base"],["KNO₃","Neutral"],["KNO₂","Base"],
-					["NaBr","Neutral"],["KMnO₄","Base"],["Ca(ClO₃)₂","Base"],["H₂O","Both"]
+					["AgCl","Neutral"],
+					["BaCrO₄","Base"],
+					["CCl₄","Neutral"],
+					["HClO₄","Acid"],
+					["CO₂H","Acid"],
+					["HNO₂","Acid"],
+					["C₃H₈","Neutral"],
+					["CH₃COOH","Acid"],
+					["MgC₂O₄","Base"],
+					["HCN","Acid"],
+					["CH₄","Neutral"],
+					["CaCO₃","Base"],
+					["Na₂S","Base"],
+					["K₂SO₃","Base"],
+					["CH₃-NH₂","Base"],
+					["Mg(OH)₂","Base"],
+					["HCl","Acid"],
+					["HNO₃","Acid"],
+					["K₃PO₄","Base"],
+					["KNO₃","Neutral"],
+					["KNO₂","Base"],
+					["NaBr","Neutral"],
+					["KMnO₄","Base"],
+					["Ca(ClO₃)₂","Base"],
+					["H₂O","Both"]
 					] 
+					#This list of chemical compounds can be expanded if need be.
+					#To add more, simply create a string array of size 2, containing the compound itself,
+					# as well as whether it is a  base, acid, neutral or both
+					
 @onready var formula = $FormulaLabel
 @onready var projectile_sprite = $Sprite2D
 @onready var projectile = self

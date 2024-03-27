@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dxm7xv0oixqie" path="res://healthFull.png" id="1_2t3f8"]
 [ext_resource type="Script" path="res://World/hud.gd" id="1_r5ayd"]
 [ext_resource type="Theme" uid="uid://bq3lejhdqdsv5" path="res://Game_Theme.tres" id="2_gtp76"]
-[ext_resource type="Theme" uid="uid://d31rns0bis8jm" path="res://Menu_Theme.tres" id="3_27yuy"]
+[ext_resource type="Theme" uid="uid://q2pxe47w6snq" path="res://MainMenu.tres" id="4_yl0th"]
 [ext_resource type="Texture2D" uid="uid://d05584uiyuoux" path="res://Assets/Animations/Duck/Jump (36x36).png" id="5_4lxbw"]
 [ext_resource type="Texture2D" uid="uid://vuuvu5kw6e68" path="res://Assets/Animations/Player/adventurer-crouch-00.png" id="6_q0nrh"]
 [ext_resource type="Texture2D" uid="uid://caydv5aqhxk4a" path="res://Assets/Animations/Duck/Fall (36x36).png" id="6_qst15"]
@@ -117,6 +117,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_yl0th")
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 material = SubResource("ShaderMaterial_mtd2u")
@@ -144,14 +145,12 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("3_27yuy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/GameOverScreen"]
 layout_mode = 2
 
 [node name="GameOverText" type="Label" parent="Control/GameOverScreen/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("3_27yuy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 0
