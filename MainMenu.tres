@@ -51,7 +51,10 @@ border_blend = true
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_47f7v"]
 
 [resource]
+Button/colors/font_hover_color = Color(0.94902, 0.94902, 0.690196, 1)
+Button/colors/font_hover_pressed_color = Color(0.94902, 0.94902, 0.690196, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.94902, 0.94902, 0.690196, 1)
 Button/constants/outline_size = 7
 Button/styles/disabled = SubResource("StyleBoxFlat_ordpu")
 Button/styles/focus = SubResource("StyleBoxFlat_2l7y4")

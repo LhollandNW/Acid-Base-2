@@ -1,5 +1,4 @@
-res://World/mainmenu.gd
-res://World/menu.tscn
+res://Characters/player_lvl_1.tscn
 res://Characters/player_lvl1.gd
 res://World/inverse.gdshader
 res://World/water2.gdshader
@@ -11,4 +10,14 @@ res://Game_Theme.tres
 res://MainMenu.tres
 res://blur.gdshader
 res://Menu_Theme.tres
+res://Characters/enemy.tscn
+res://Projectiles/enemy_projectile.tscn
+res://Projectiles/AcidParticles.tscn
+res://Projectiles/BaseParticles.tscn
+res://Projectiles/NeutralParticles.tscn
+res://World/lvl_1.tscn
+res://World/menu.tscn
+res://World/tutorial.tscn
 res://credits.tscn
+res://World/mainmenu.gd
+res://World/credits.tscn
