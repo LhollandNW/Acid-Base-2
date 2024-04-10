@@ -1,6 +1,5 @@
-[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://bpjprpu1i2yu0"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bpjprpu1i2yu0"]
 
-[ext_resource type="Material" uid="uid://63cgipkhpvem" path="res://World/water.tres" id="1_i6sqy"]
 [ext_resource type="Texture2D" uid="uid://o2i1dl5uffha" path="res://Assets/Textures/Tilesheet/tilemap.png" id="2_b11ud"]
 [ext_resource type="Material" uid="uid://dmp81ncmdjqh3" path="res://World/water2.tres" id="3_5wine"]
 
@@ -138,7 +137,6 @@ texture_region_size = Vector2i(18, 18)
 12:1/0/physics_layer_0/angular_velocity = 0.0
 13:1/animation_columns = 2
 13:1/0 = 0
-13:1/0/material = ExtResource("1_i6sqy")
 13:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 13:1/0/physics_layer_0/angular_velocity = 0.0
 14:1/0 = 0
@@ -273,7 +271,6 @@ texture_region_size = Vector2i(18, 18)
 12:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 12:3/0/physics_layer_0/angular_velocity = 0.0
 13:3/0 = 0
-13:3/0/material = ExtResource("1_i6sqy")
 13:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 13:3/0/physics_layer_0/angular_velocity = 0.0
 14:3/0 = 0
@@ -616,7 +613,6 @@ texture_region_size = Vector2i(18, 18)
 19:8/0/physics_layer_0/angular_velocity = 0.0
 13:2/animation_columns = 2
 13:2/0 = 0
-13:2/0/material = ExtResource("1_i6sqy")
 13:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 13:2/0/physics_layer_0/angular_velocity = 0.0
 15:1/0 = 0

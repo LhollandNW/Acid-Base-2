@@ -26,7 +26,6 @@ collision_layer = 4
 collision_mask = 3
 gravity_scale = 0.01
 script = ExtResource("1_wfft1")
-metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_dqqh8")
@@ -36,17 +35,15 @@ texture = ExtResource("2_qywfp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hh518")
 
-[node name="FormulaLabel" type="Label" parent="."]
+[node name="FormulaLabel" type="RichTextLabel" parent="."]
 offset_left = -76.0
-offset_top = -55.0
+offset_top = -30.0
 offset_right = 76.0
-offset_bottom = -10.0
+offset_bottom = 15.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_font_sizes/font_size = 20
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/outline_size = 0
+bbcode_enabled = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0

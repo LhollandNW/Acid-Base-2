@@ -9,30 +9,30 @@ var duration = 3.0
 @onready var handled = false
 var compoundArray = [
 					["AgCl","Neutral"],
-					["BaCrO₄","Base"],
-					["CCl₄","Neutral"],
-					["HClO₄","Acid"],
-					["CO₂H","Acid"],
-					["HNO₂","Acid"],
-					["C₃H₈","Neutral"],
-					["CH₃COOH","Acid"],
-					["MgC₂O₄","Base"],
+					["BaCrO[font_size=10]4[/font_size]","Base"],
+					["CCl[font_size=10]4[/font_size]","Neutral"],
+					["HClO[font_size=10]4[/font_size]","Acid"],
+					["CO[font_size=10]2[/font_size]H","Acid"],
+					["HNO[font_size=10]2[/font_size]","Acid"],
+					["C[font_size=10]3[/font_size]H[font_size=10]8[/font_size]","Neutral"],
+					["CH[font_size=10]3[/font_size]COOH","Acid"],
+					["MgC[font_size=10]2[/font_size]O[font_size=10]4[/font_size]","Base"],
 					["HCN","Acid"],
-					["CH₄","Neutral"],
-					["CaCO₃","Base"],
-					["Na₂S","Base"],
-					["K₂SO₃","Base"],
-					["CH₃-NH₂","Base"],
-					["Mg(OH)₂","Base"],
+					["CH[font_size=10]4[/font_size]","Neutral"],
+					["CaCO[font_size=10]3[/font_size]","Base"],
+					["Na[font_size=10]2[/font_size]S","Base"],
+					["K[font_size=10]2[/font_size]SO[font_size=10]3[/font_size]","Base"],
+					["CH[font_size=10]3[/font_size]-NH[font_size=10]2[/font_size]","Base"],
+					["Mg(OH)[font_size=10]2[/font_size]","Base"],
 					["HCl","Acid"],
-					["HNO₃","Acid"],
-					["K₃PO₄","Base"],
-					["KNO₃","Neutral"],
-					["KNO₂","Base"],
+					["HNO[font_size=10]3[/font_size]","Acid"],
+					["K[font_size=10]3[/font_size]PO[font_size=10]4[/font_size]","Base"],
+					["KNO[font_size=10]3[/font_size]","Neutral"],
+					["KNO[font_size=10]2[/font_size]","Base"],
 					["NaBr","Neutral"],
-					["KMnO₄","Base"],
-					["Ca(ClO₃)₂","Base"],
-					["H₂O","Both"]
+					["KMnO[font_size=10]4[/font_size]","Base"],
+					["Ca(ClO[font_size=10]3[/font_size])[font_size=10]2[/font_size]","Base"],
+					["H[font_size=10]2[/font_size]O","Both"]
 					] 
 					#This list of chemical compounds can be expanded if need be.
 					#To add more, simply create a string array of size 2, containing the compound itself,
@@ -57,7 +57,7 @@ func _ready():
 	baseExplosion.disabled
 	var selection = randi_range(0, compoundArray.size() - 1)
 	add_to_group(compoundArray[selection][1])
-	formula.text = compoundArray[selection][0]
+	formula.text = "[center]" + compoundArray[selection][0] + "[/center]"
 	
 func _physics_process(delta):
 	rotation = 0.00

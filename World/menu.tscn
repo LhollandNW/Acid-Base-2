@@ -69,14 +69,6 @@ theme = ExtResource("4_lar54")
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="UserName" type="Label" parent="Panel/PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "User Name:"
-
-[node name="HighScore" type="Label" parent="Panel/PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "High Score:"
-
 [node name="Level1" type="Button" parent="Panel/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32

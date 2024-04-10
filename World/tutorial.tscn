@@ -59,7 +59,7 @@ You can ignore [color=green]neutral[/color]* compounds, as they are harmless in 
 
 If unsure, you can dodge using [font_size=18]A or LEFT[/font_size], though it will cost you half a heart.
 
-*For the sake of this simulation, H₂O is treated as neutral"
+*For the sake of this simulation, H[font_size=10]2[/font_size]O is treated as neutral"
 fit_content = true
 
 [node name="Button" type="Button" parent="."]
